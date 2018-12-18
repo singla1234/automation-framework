@@ -3,6 +3,7 @@ from pages.homepage import homepage
 from pages.loginpage import loginpage
 from utils import utils as utils
 from pytest import fixture
+import allure
 
 class Testlogin:
     @fixture(scope="class")
@@ -24,6 +25,24 @@ class Testlogin:
 
 
     def test_logout(self,test_setup):
-        home=homepage(driver)
-        home.click_admin()
-        home.click_logout()
+        try:
+            home=homepage(driver)
+            home.click_admin()
+            home.click_logout()
+            x=driver.title
+            assert x=="OrangeHRM"
+        except AssertionError as error:
+            print("assertion error occureed")
+            print(error)
+            allure.attach(driver.get_screenshot_as_png(),name="screenshot",
+                          attachment_type=allure.attachment_type.PNG)
+            raise
+        except:
+            print("this is exception")
+            raise
+        else:
+            print("no exception occurred")
+        finally:
+            print("i am inside finally block")
+
+
