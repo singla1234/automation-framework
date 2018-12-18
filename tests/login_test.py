@@ -4,6 +4,7 @@ from pages.loginpage import loginpage
 from utils import utils as utils
 from pytest import fixture
 import allure
+import pytest
 
 class Testlogin:
     @fixture(scope="class")
@@ -44,5 +45,4 @@ class Testlogin:
             print("no exception occurred")
         finally:
             print("i am inside finally block")
-
 
